@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommendation System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+        }
+        .movie {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .recommendations {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Movie Recommendation System</h1>
+        <p>Select your favorite genre:</p>
+        <select id="genre" onchange="recommendMovies()">
+            <option value="">--Choose a genre--</option>
+            <option value="Action">Action</option>
+            <option value="Comedy">Comedy</option>
+            <option value="Drama">Drama</option>
+            <option value="Sci-Fi">Sci-Fi</option>
+            <option value="Horror">Horror</option>
+        </select>
+
+        <div class="recommendations">
+            <h2>Recommended Movies</h2>
+            <div id="recommendationsList"></div>
+        </div>
+    </div>
+
+    <script>
+        const movies = [
+            { title: "Avengers: Endgame", genre: "Action" },
+            { title: "The Dark Knight", genre: "Action" },
+            { title: "The Hangover", genre: "Comedy" },
+            { title: "Superbad", genre: "Comedy" },
+            { title: "The Shawshank Redemption", genre: "Drama" },
+            { title: "Forrest Gump", genre: "Drama" },
+            { title: "Inception", genre: "Sci-Fi" },
+            { title: "Interstellar", genre: "Sci-Fi" },
+            { title: "The Conjuring", genre: "Horror" },
+            { title: "It", genre: "Horror" }
+        ];
+
+        function recommendMovies() {
+            const genre = document.getElementById("genre").value;
+            const recommendationsList = document.getElementById("recommendationsList");
+
+            // Clear previous recommendations
+            recommendationsList.innerHTML = "";
+
+            if (genre) {
+                const filteredMovies = movies.filter(movie => movie.genre === genre);
+                filteredMovies.forEach(movie => {
+                    const movieElement = document.createElement("div");
+                    movieElement.classList.add("movie");
+                    movieElement.textContent = movie.title;
+                    recommendationsList.appendChild(movieElement);
+                });
+
+                if (filteredMovies.length === 0) {
+                    recommendationsList.textContent = "No recommendations available for the selected genre.";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
